@@ -6,8 +6,8 @@ SCRIPT_FOLDER = os.path.dirname(__file__)
 
 
 def export_constants():
-    relative_read_path = "ScreepsAutocomplete/Global/Constants.js"
-    relative_write_path = "ExportedConstants.js"
+    relative_read_path = "../ScreepsAutocomplete/Global/Constants.js"
+    relative_write_path = "../ExportedConstants.js"
     absolute_read_path = os.path.join(SCRIPT_FOLDER, relative_read_path)
     absolute_write_path = os.path.join(SCRIPT_FOLDER, relative_write_path)
 
@@ -22,7 +22,7 @@ def add_noinspections():
     folders_to_search_js_files = ["default"]
 
     for folder in folders_to_search_js_files:
-        for path in glob.glob(folder + "/*.js", recursive = True):
+        for path in glob.glob(f"../{folder}/*.js", recursive = True):
             file_path = f"{SCRIPT_FOLDER}/{path}".replace('\\', '/')
             with open(file_path, 'r+') as file:
                 file_text = file.read()
