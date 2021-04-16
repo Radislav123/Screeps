@@ -1,13 +1,16 @@
+from python_scripts import get_config
+import json
 import glob
 import os
 
 
 SCRIPT_FOLDER = os.path.dirname(__file__)
+config = get_config()
 
 
 def export_constants():
     relative_read_path = "../ScreepsAutocomplete/Global/Constants.js"
-    relative_write_path = "../ExportedConstants.js"
+    relative_write_path = config["relative_write_path"] + config["exported_constants_file_name"]
     absolute_read_path = os.path.join(SCRIPT_FOLDER, relative_read_path)
     absolute_write_path = os.path.join(SCRIPT_FOLDER, relative_write_path)
 
@@ -19,7 +22,7 @@ def export_constants():
 
 
 def add_noinspections():
-    folders_to_search_js_files = ["default"]
+    folders_to_search_js_files = json.loads(config["folders_to_search_js_files"])
 
     for folder in folders_to_search_js_files:
         for path in glob.glob(f"../{folder}/*.js", recursive = True):

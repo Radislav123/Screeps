@@ -6,13 +6,13 @@
  */
 
 //creeps roles
-let baseRole = require("role.baseRole");
+let baseRole = require("ide_work/role.baseRole");
 
 //service
-let errorCodes = require("service.constants").errorCodes;
-let filters = require("service.filters");
-let logger = require("service.logger");
-let service = require("service");
+let errorCodes = require("ide_work/service.constants").errorCodes;
+let filters = require("ide_work/service.filters");
+let logger = require("ide_work/service.logger");
+let service = require("ide_work/service");
 
 
 //abstract role
