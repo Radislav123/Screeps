@@ -6,12 +6,12 @@
  */
 
 //creeps roles
-let roleWorker = require("ide_work/role.worker");
+let roleWorker = require("role.worker");
 
 //service
-let role = require("ide_work/service.constants").roleNames.workers[0];
-let errorCodes = require("ide_work/service.constants").errorCodes;
-let filters = require("ide_work/service.filters");
+let role = require("service.constants").roleNames.workers[0];
+let errorCodes = require("service.constants").errorCodes;
+let filters = require("service.filters");
 
 
 let roleHarvester = Object.create(roleWorker);

@@ -6,7 +6,7 @@
 
 
 //service
-let logger = require("ide_work/service.logger");
+let logger = require("service.logger");
 
 
 /**

@@ -6,9 +6,9 @@
  */
 
 //service
-let roleNames = require("ide_work/service.constants").roleNames;
-let logger = require("ide_work/service.logger");
-let service = require("ide_work/service");
+let roleNames = require("service.constants").roleNames;
+let logger = require("service.logger");
+let service = require("service");
 
 
 let ait = "\n\t";

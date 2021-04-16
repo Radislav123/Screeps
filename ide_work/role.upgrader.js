@@ -6,10 +6,10 @@
  */
 
 //creep roles
-let roleWorker = require("ide_work/role.worker");
+let roleWorker = require("role.worker");
 
 //service
-let role = require("ide_work/service.constants").roleNames.workers[2];
+let role = require("service.constants").roleNames.workers[2];
 
 
 //roleUpgrader.specificTask is stored as roleWorker.specificTask

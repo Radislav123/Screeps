@@ -6,12 +6,12 @@
  */
 
 //creeps roles
-let roleHarvester = require("ide_work/role.harvester");
-let roleUpgrader = require("ide_work/role.upgrader");
-let roleBuilder = require("ide_work/role.builder");
+let roleHarvester = require("role.harvester");
+let roleUpgrader = require("role.upgrader");
+let roleBuilder = require("role.builder");
 
 //service
-let filters = require("ide_work/service.filters");
+let filters = require("service.filters");
 
 
 /**
