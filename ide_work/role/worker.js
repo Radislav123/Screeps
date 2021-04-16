@@ -6,20 +6,20 @@
  */
 
 //creeps roles
-let baseRole = require("role.baseRole");
+let baseRole = require("role/baseRole");
 
 //service
-let errorCodes = require("service.constants").errorCodes;
-let filters = require("service.filters");
-let logger = require("service.logger");
+let errorCodes = require("service/constants").errorCodes;
+let filters = require("service/filters");
+let logger = require("service/logger");
 let service = require("service");
 
 
 //abstract role
-let roleWorker = Object.create(baseRole);
-roleWorker.super = baseRole;
-roleWorker.role = undefined;
-roleWorker.body = [WORK, CARRY, MOVE];
+let worker = Object.create(baseRole);
+worker.super = baseRole;
+worker.role = undefined;
+worker.body = [WORK, CARRY, MOVE];
 
 /**
  * Spawn a creep.
@@ -29,7 +29,7 @@ roleWorker.body = [WORK, CARRY, MOVE];
  *
  * @return {number} spawnCode
  */
-roleWorker.spawnCreep = function (creepFrame, spawn) {
+worker.spawnCreep = function (creepFrame, spawn) {
 	let memory = {
 		sourceId: 0,
 		playingRole: false
@@ -43,7 +43,7 @@ roleWorker.spawnCreep = function (creepFrame, spawn) {
  * @param {Creep} creep instance to work
  * @param {function} specificTask
  */
-roleWorker.work = function (creep, specificTask) {
+worker.work = function (creep, specificTask) {
 	let taskToExecute;
 	if (service.isFull(creep)) {
 		taskToExecute = specificTask;
@@ -71,7 +71,7 @@ roleWorker.work = function (creep, specificTask) {
  *
  * @param {Creep} creep - creep instance to execute task
  */
-roleWorker.harvest = function (creep) {
+worker.harvest = function (creep) {
 	let source = Game.getObjectById(creep.memory.sourceId);
 	if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
 		creep.moveTo(source);
@@ -88,7 +88,7 @@ roleWorker.harvest = function (creep) {
  */
 //Is here to avoid circular reference to roleUpgrader
 //in roleBuilder and roleHarvester this method is overwritten by theirs
-roleWorker.specificTask = function (creep) {
+worker.specificTask = function (creep) {
 	let errorCode = OK;
 	if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
 		creep.moveTo(creep.room.controller);
@@ -101,7 +101,7 @@ roleWorker.specificTask = function (creep) {
  *
  * @return {[]} [sourceId, sourceNumber] - [the most unloaded source id, source number in memory]
  */
-roleWorker.getLessLoadedSourceId = function () {
+worker.getLessLoadedSourceId = function () {
 	let sources = Memory.sources;
 	let minCreepsNumber = sources[0].assignedCreepsNumber;
 	let minCreepsSourceNumber = 0;
@@ -125,7 +125,7 @@ roleWorker.getLessLoadedSourceId = function () {
  *
  * @return {String} assigned sourceId
  */
-roleWorker.assignSourceToWorker = function (creepId) {
+worker.assignSourceToWorker = function (creepId) {
 	let [sourceId, sourceNumber] = this.getLessLoadedSourceId();
 	Game.getObjectById(creepId).memory.sourceId = sourceId;
 	Memory.sources[sourceNumber].assignedCreepsNumber++;
@@ -138,7 +138,7 @@ roleWorker.assignSourceToWorker = function (creepId) {
  *
  * @param {Room} room
  */
-roleWorker.initializeSources = function (room) {
+worker.initializeSources = function (room) {
 	let defaultSources = room.find(FIND_SOURCES);
 	let sources = [];
 	defaultSources.forEach(
@@ -161,7 +161,7 @@ roleWorker.initializeSources = function (room) {
 	Memory.sources = sources;
 };
 
-roleWorker.assignSourcesToAllWorkers = function () {
+worker.assignSourcesToAllWorkers = function () {
 	filters.getWorkers().forEach(
 		function (creep) {
 			this.assignSourceToWorker(creep.id);
@@ -171,4 +171,4 @@ roleWorker.assignSourcesToAllWorkers = function () {
 };
 
 
-module.exports = roleWorker;
+module.exports = worker;

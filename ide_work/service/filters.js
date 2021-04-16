@@ -5,8 +5,8 @@
  */
 
 //service
-let roleNames = require("service.constants").roleNames;
-let service = require("service");
+let roleNames = require("service/constants").roleNames;
+let service = require("service/index");
 
 
 /**

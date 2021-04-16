@@ -1,2 +1,6 @@
+# generated
 python_scripts/data/
+default/
+
+# game files
 .sync

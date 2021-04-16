@@ -6,17 +6,17 @@
  */
 
 //creeps roles
-let roleWorker = require("role.worker");
+let roleWorker = require("role/worker");
 
 //service
-let role = require("service.constants").roleNames.workers[1];
-let errorCodes = require("service.constants").errorCodes;
-let filters = require("service.filters");
+let role = require("service/constants").roleNames.workers[1];
+let errorCodes = require("service/constants").errorCodes;
+let filters = require("service/filters");
 
 
-let roleBuilder = Object.create(roleWorker);
-roleBuilder.super = roleWorker;
-roleBuilder.role = role;
+let builder = Object.create(roleWorker);
+builder.super = roleWorker;
+builder.role = role;
 
 /**
  * Spawn the new harvester creep.
@@ -25,7 +25,7 @@ roleBuilder.role = role;
  *
  * @return {number} spawnCode
  */
-roleBuilder.spawnCreep = function (spawn) {
+builder.spawnCreep = function (spawn) {
 	return this.super.spawnCreep(this, spawn);
 };
 
@@ -34,7 +34,7 @@ roleBuilder.spawnCreep = function (spawn) {
  *
  * @param {Creep} creep instance to execute task
  */
-roleBuilder.work = function (creep) {
+builder.work = function (creep) {
 	this.super.work(creep, this.specificTask);
 };
 
@@ -45,7 +45,7 @@ roleBuilder.work = function (creep) {
  *
  * @return {number} OK (0) or error code
  */
-roleBuilder.specificTask = function (creep) {
+builder.specificTask = function (creep) {
 	let errorCode = OK;
 	let targets = filters.getConstructionSites(creep.room);
 	if (targets.length > 0) {
@@ -59,4 +59,4 @@ roleBuilder.specificTask = function (creep) {
 };
 
 
-module.exports = roleBuilder;
+module.exports = builder;

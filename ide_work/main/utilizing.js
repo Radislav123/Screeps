@@ -2,12 +2,12 @@
 
 /**
  * Module responsible for utilizing.
- * Should be used only in "main.js".
+ * Should be used only in "index.js".
  */
 
 //service
-let roleNames = require("service.constants").roleNames;
-let logger = require("service.logger");
+let roleNames = require("service/constants").roleNames;
+let logger = require("service/logger");
 let service = require("service");
 
 

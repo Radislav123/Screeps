@@ -6,10 +6,10 @@
  */
 
 //creeps roles
-let roleWorker = require("role.worker");
+let roleWorker = require("role/worker");
 
 //service
-let role = require("service.constants").roleNames.workers[3];
+let role = require("service/constants").roleNames.workers[3];
 
 
 let creepPuller = Object.create(roleWorker);

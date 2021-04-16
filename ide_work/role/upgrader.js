@@ -6,17 +6,17 @@
  */
 
 //creep roles
-let roleWorker = require("role.worker");
+let roleWorker = require("role/worker");
 
 //service
-let role = require("service.constants").roleNames.workers[2];
+let role = require("service/constants").roleNames.workers[2];
 
 
-//roleUpgrader.specificTask is stored as roleWorker.specificTask
+//upgrader.specificTask is stored as roleWorker.specificTask
 //to avoid circular reference
-let roleUpgrader = Object.create(roleWorker);
-roleUpgrader.super = roleWorker;
-roleUpgrader.role = role;
+let upgrader = Object.create(roleWorker);
+upgrader.super = roleWorker;
+upgrader.role = role;
 
 /**
  * Spawn the new upgrader creep.
@@ -25,7 +25,7 @@ roleUpgrader.role = role;
  *
  * @return {number} spawnCode
  */
-roleUpgrader.spawnCreep = function (spawn) {
+upgrader.spawnCreep = function (spawn) {
 	return this.super.spawnCreep(this, spawn);
 };
 
@@ -34,9 +34,9 @@ roleUpgrader.spawnCreep = function (spawn) {
  *
  * @param {Creep} creep instance to execute task
  */
-roleUpgrader.work = function (creep) {
+upgrader.work = function (creep) {
 	this.super.work(creep, this.specificTask);
 };
 
 
-module.exports = roleUpgrader;
+module.exports = upgrader;

@@ -2,13 +2,13 @@
 
 /**
  * Module responsible for creeps spawn.
- * Should be used only in "main.js".
+ * Should be used only in "index.js".
  */
 
 //creeps roles
-let roleHarvester = require("role.harvester");
-let roleUpgrader = require("role.upgrader");
-let roleBuilder = require("role.builder");
+let roleHarvester = require("role/harvester");
+let roleUpgrader = require("role/upgrader");
+let roleBuilder = require("role/builder");
 
 
 // this order affects the spawn order

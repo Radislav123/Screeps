@@ -25,7 +25,7 @@ def add_noinspections():
     folders_to_search_js_files = json.loads(config["folders_to_search_js_files"])
 
     for folder in folders_to_search_js_files:
-        for path in glob.glob(f"../{folder}/*.js", recursive = True):
+        for path in glob.glob(f"../{folder}/**/*.js"):
             file_path = f"{SCRIPT_FOLDER}/{path}".replace('\\', '/')
             with open(file_path, 'r+') as file:
                 file_text = file.read()

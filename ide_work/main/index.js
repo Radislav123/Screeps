@@ -5,10 +5,10 @@
  */
 
 //main functions
-let init = require("main.init").init;
-let utilizeCreeps = require("main.utilizing").utilizeCreeps;
-let makeJobs = require("main.jobs").makeJobs;
-let spawnCreep = require("main.spawn").spawnCreep;
+let init = require("main/init").init;
+let utilizeCreeps = require("main/utilizing").utilizeCreeps;
+let makeJobs = require("main/jobs").makeJobs;
+let spawnCreep = require("main/spawn").spawnCreep;
 
 
 module.exports.loop = function () {

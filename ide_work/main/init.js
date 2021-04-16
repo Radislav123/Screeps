@@ -2,16 +2,16 @@
 
 /**
  * Module responsible for init actions.
- * Should be used only in "main.js".
+ * Should be used only in "index.js".
  */
 
 //creeps roles
-let roleWorker = require("role.worker");
+let roleWorker = require("role/worker");
 
 //service
-let roleNames = require("service.constants").roleNames;
-let filters = require("service.filters");
-let logger = require("service.logger");
+let roleNames = require("service/constants").roleNames;
+let filters = require("service/filters");
+let logger = require("service/logger");
 let service = require("service");
 
 
