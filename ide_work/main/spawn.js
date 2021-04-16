@@ -2,7 +2,7 @@
 
 /**
  * Module responsible for creeps spawn.
- * Should be used only in "index.js".
+ * Should be used only in "main/index.js" (main.js after flattering).
  */
 
 //creeps roles
@@ -26,7 +26,7 @@ let spawnCreep = function (spawn) {
 	spawnWorker(spawn);
 };
 
-let spawnWorker = function(spawn) {
+let spawnWorker = function (spawn) {
 	creepsRoles.workers.forEach(
 		function (workerRole) {
 			if (Game.time % workerRole.getSpawnTime() == 0 &&
@@ -40,7 +40,7 @@ let spawnWorker = function(spawn) {
 			if (spawn.spawning) {
 				if (Game.time % workerRole.getSpawnTime() == 1 &&
 					Memory.spawning == workerRole.role) {
-					workerRole.assignSourceToWorker(Game.creeps[spawn.spawning.name].id);
+					workerRole.assignSourceToWorker(Game.creeps[spawn.spawning.name]);
 				}
 				if (spawn.spawning.remainingTime == 1 &&
 					Memory.spawning == workerRole.role) {

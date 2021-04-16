@@ -9,7 +9,7 @@
 let baseRole = require("role/baseRole");
 
 //service
-let errorCodes = require("service/constants").errorCodes;
+let projectErrorCodes = require("service/constants").projectErrorCodes;
 let filters = require("service/filters");
 let logger = require("service/logger");
 let service = require("service");
@@ -60,7 +60,7 @@ worker.work = function (creep, specificTask) {
 	}
 	//if worker can not execute its specific task,
 	//it will execute upgrader role
-	if (taskToExecute(creep) == errorCodes.ERR_NOT_ENOUGH_TARGETS) {
+	if (taskToExecute(creep) == projectErrorCodes.ERR_NOT_ENOUGH_TARGETS) {
 		this.specificTask(creep);
 	}
 };
@@ -86,8 +86,8 @@ worker.harvest = function (creep) {
  *
  * @return {number} OK (0) or error code
  */
-//Is here to avoid circular reference to roleUpgrader
-//in roleBuilder and roleHarvester this method is overwritten by theirs
+//Is here to avoid circular reference to upgrader
+//in builder and harvester this method is overwritten by theirs
 worker.specificTask = function (creep) {
 	let errorCode = OK;
 	if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
@@ -121,15 +121,15 @@ worker.getLessLoadedSourceId = function () {
 /**
  * Assign source to creep.
  *
- * @param {String} creepId
+ * @param {Creep} creep
  *
  * @return {String} assigned sourceId
  */
-worker.assignSourceToWorker = function (creepId) {
+worker.assignSourceToWorker = function (creep) {
 	let [sourceId, sourceNumber] = this.getLessLoadedSourceId();
-	Game.getObjectById(creepId).memory.sourceId = sourceId;
+	creep.memory.sourceId = sourceId;
 	Memory.sources[sourceNumber].assignedCreepsNumber++;
-	logger.info(`Creep (id : ${creepId}) was assigned to the source (id : ${sourceId}).`);
+	logger.info(`Creep (name : ${creep.name}) was assigned to the source (id : ${sourceId}).`);
 	return sourceId;
 };
 
@@ -164,7 +164,7 @@ worker.initializeSources = function (room) {
 worker.assignSourcesToAllWorkers = function () {
 	filters.getWorkers().forEach(
 		function (creep) {
-			this.assignSourceToWorker(creep.id);
+			this.assignSourceToWorker(creep);
 		}
 	);
 	logger.info("All sources were assigned to workers.");

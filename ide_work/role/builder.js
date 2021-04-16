@@ -10,7 +10,7 @@ let roleWorker = require("role/worker");
 
 //service
 let role = require("service/constants").roleNames.workers[1];
-let errorCodes = require("service/constants").errorCodes;
+let projectErrorCodes = require("service/constants").projectErrorCodes;
 let filters = require("service/filters");
 
 
@@ -53,7 +53,7 @@ builder.specificTask = function (creep) {
 			creep.moveTo(targets[0]);
 		}
 	} else {
-		errorCode = errorCodes.ERR_NOT_ENOUGH_TARGETS;
+		errorCode = projectErrorCodes.ERR_NOT_ENOUGH_TARGETS;
 	}
 	return errorCode;
 };

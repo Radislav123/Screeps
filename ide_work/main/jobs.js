@@ -2,7 +2,7 @@
 
 /**
  * Module responsible for creep jobs.
- * Should be used only in "index.js".
+ * Should be used only in "main/index.js" (main.js after flattering).
  */
 
 //creeps roles

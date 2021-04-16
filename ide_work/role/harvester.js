@@ -5,17 +5,17 @@
  * Harvest energy.
  */
 
-//creeps roles
-let roleWorker = require("role/worker");
+//creep roles
+let worker = require("role/worker");
 
 //service
 let role = require("service/constants").roleNames.workers[0];
-let errorCodes = require("service/constants").errorCodes;
+let projectErrorCodes = require("service/constants").projectErrorCodes;
 let filters = require("service/filters");
 
 
-let harvester = Object.create(roleWorker);
-harvester.super = roleWorker;
+let harvester = Object.create(worker);
+harvester.super = worker;
 harvester.role = role;
 
 /**
@@ -53,7 +53,7 @@ harvester.specificTask = function (creep) {
 			creep.moveTo(targets[0]);
 		}
 	} else {
-		errorCode = errorCodes.ERR_NOT_ENOUGH_TARGETS;
+		errorCode = projectErrorCodes.ERR_NOT_ENOUGH_TARGETS;
 	}
 	return errorCode;
 };

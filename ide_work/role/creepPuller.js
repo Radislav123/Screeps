@@ -5,16 +5,16 @@
  * Harvest energy.
  */
 
-//creeps roles
-let roleWorker = require("role/worker");
+//creep roles
+let worker = require("role/worker");
 
 //service
 let role = require("service/constants").roleNames.workers[3];
 
 
-let creepPuller = Object.create(roleWorker);
+let creepPuller = Object.create(worker);
 creepPuller.body = [MOVE, MOVE, MOVE, MOVE];
-creepPuller.super = roleWorker;
+creepPuller.super = worker;
 creepPuller.role = role;
 
 /**

@@ -12,7 +12,6 @@
       <sourceFolder url="file://$MODULE_DIR$/ScreepsAutocomplete" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ide_work" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/shard3" />
-      <excludeFolder url="file://$MODULE_DIR$/python_scripts/data" />
       <excludeFolder url="file://$MODULE_DIR$/default" />
     </content>
     <orderEntry type="inheritedJdk" />

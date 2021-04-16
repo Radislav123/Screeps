@@ -2,7 +2,7 @@
 
 /**
  * Module responsible for utilizing.
- * Should be used only in "index.js".
+ * Should be used only in "main/index.js" (main.js after flattering).
  */
 
 //service

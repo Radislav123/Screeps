@@ -6,16 +6,16 @@
  */
 
 //creep roles
-let roleWorker = require("role/worker");
+let worker = require("role/worker");
 
 //service
 let role = require("service/constants").roleNames.workers[2];
 
 
-//upgrader.specificTask is stored as roleWorker.specificTask
+//upgrader.specificTask is stored as worker.specificTask
 //to avoid circular reference
-let upgrader = Object.create(roleWorker);
-upgrader.super = roleWorker;
+let upgrader = Object.create(worker);
+upgrader.super = worker;
 upgrader.role = role;
 
 /**

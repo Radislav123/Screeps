@@ -2,7 +2,7 @@
 
 /**
  * Module responsible for init actions.
- * Should be used only in "index.js".
+ * Should be used only in "main/index.js" (main.js after flattering).
  */
 
 //creeps roles

@@ -10,11 +10,11 @@ let logger = require("service/logger");
 
 
 //abstract role
-let baseRole = {};
+let base = {};
 
-baseRole.role = undefined;
-baseRole.body = undefined;
-baseRole.getSpawnTime = function () {
+base.role = undefined;
+base.body = undefined;
+base.getSpawnTime = function () {
 	let spawnTime = undefined;
 	if (this.body != undefined) {
 		spawnTime = this.body.length*3;
@@ -31,7 +31,7 @@ baseRole.getSpawnTime = function () {
  *
  * @return {number} spawnCode
  */
-baseRole.spawnCreep = function (creepFrame, spawn, memory) {
+base.spawnCreep = function (creepFrame, spawn, memory) {
 	memory["role"] = creepFrame.role;
 
 	let spawnCode = spawn.spawnCreep(creepFrame.body, creepFrame.role + Game.time, {"memory": memory});
@@ -39,4 +39,4 @@ baseRole.spawnCreep = function (creepFrame, spawn, memory) {
 	return spawnCode;
 };
 
-module.exports = baseRole;
+module.exports = base;

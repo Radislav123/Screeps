@@ -11,11 +11,11 @@ const roleNames = {
 	workers: ["harvester", "builder", "upgrader"]
 };
 
-const errorCodes = {
+const projectErrorCodes = {
 	ERR_NOT_ENOUGH_TARGETS: -999
 };
 
 module.exports = {
 	roleNames,
-	errorCodes
+	projectErrorCodes
 };
