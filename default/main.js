@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Main module. Enter point.
  */
@@ -7,9 +9,6 @@ let init = require("main.init").init;
 let utilizeCreeps = require("main.utilizing").utilizeCreeps;
 let makeJobs = require("main.jobs").makeJobs;
 let spawnCreep = require("main.spawn").spawnCreep;
-
-//service
-let logger = require("service.logger");
 
 
 module.exports.loop = function () {

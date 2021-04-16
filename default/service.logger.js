@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with logger.
  */
@@ -78,7 +80,7 @@ let getFunctionCpuUsage = function (func, ...args) {
  * @param {String} colorCode in "#xxxxxx" format
  */
 let makeColorfulMessage = function (message, colorCode) {
-	return '<font color="' + colorCode + '">' + message + '</font>';
+	return '<span ' + colorCode + 'style="color: ; ">' + message + '</span>';
 };
 
 

@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with harvester creep role.
  * Harvest energy.
@@ -8,9 +10,6 @@ let roleWorker = require("role.worker");
 
 //service
 let role = require("service.constants").roleNames.workers[3];
-let errorCodes = require("service.constants").errorCodes;
-let filters = require("service.filters");
-let logger = require("service.logger");
 
 
 let creepPuller = Object.create(roleWorker);

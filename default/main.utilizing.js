@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module responsible for utilizing.
  * Should be used only in "main.js".

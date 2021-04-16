@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with base creep role for all others.
  * It is abstract role and should not be used for job or spawn.

@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module responsible for creeps spawn.
  * Should be used only in "main.js".
@@ -7,9 +9,6 @@
 let roleHarvester = require("role.harvester");
 let roleUpgrader = require("role.upgrader");
 let roleBuilder = require("role.builder");
-
-//service
-let logger = require("service.logger");
 
 
 // this order affects the spawn order

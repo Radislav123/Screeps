@@ -1,10 +1,11 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with functions to get filtered lists.
  */
 
 //service
 let roleNames = require("service.constants").roleNames;
-let logger = require("service.logger");
 let service = require("service");
 
 

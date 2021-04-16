@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with upgrader creep role.
  * Harvest energy.
@@ -8,7 +10,6 @@ let roleWorker = require("role.worker");
 
 //service
 let role = require("service.constants").roleNames.workers[2];
-let logger = require("service.logger");
 
 
 //roleUpgrader.specificTask is stored as roleWorker.specificTask

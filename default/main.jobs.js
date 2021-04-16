@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module responsible for creep jobs.
  * Should be used only in "main.js".
@@ -10,7 +12,6 @@ let roleBuilder = require("role.builder");
 
 //service
 let filters = require("service.filters");
-let logger = require("service.logger");
 
 
 /**

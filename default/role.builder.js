@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with builder creep role.
  * Build structures.
@@ -10,7 +12,6 @@ let roleWorker = require("role.worker");
 let role = require("service.constants").roleNames.workers[1];
 let errorCodes = require("service.constants").errorCodes;
 let filters = require("service.filters");
-let logger = require("service.logger");
 
 
 let roleBuilder = Object.create(roleWorker);

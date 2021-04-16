@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module responsible for init actions.
  * Should be used only in "main.js".

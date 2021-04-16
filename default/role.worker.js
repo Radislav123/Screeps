@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with worker creep role, which is base for harvester, builder and upgrader.
  * It is abstract role and should not be used for job or spawn.
@@ -42,7 +44,7 @@ roleWorker.spawnCreep = function (creepFrame, spawn) {
  * @param {function} specificTask
  */
 roleWorker.work = function (creep, specificTask) {
-	let taskToExecute = function () {};
+	let taskToExecute;
 	if (service.isFull(creep)) {
 		taskToExecute = specificTask;
 		creep.memory.playingRole = true;
