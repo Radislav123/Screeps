@@ -22,7 +22,7 @@ let utilizeCreeps = function () {
 		if (!Game.creeps[creepName]) {
 			let creep = Memory.creeps[creepName];
 
-			if (projectCreepRoles.worker.includes(creep.roleName)) {
+			if (Object.keys(projectCreepRoles.worker).includes(creep.roleName)) {
 				utilizeWorker(creepName, creep.roleName, creep.sourceId);
 			} else {
 				logger.warning(`Could not utilize creep correctly because of unknown role : ${creep.roleName}`);
@@ -31,7 +31,7 @@ let utilizeCreeps = function () {
 			//deletes creep memory
 			delete Memory.creeps[creepName];
 
-			logger.info(`Utilizing creep memory.${ait}(creepName : ${creepName})`);
+			logger.info(`Utilizing creep memory.${ait}(creep name : ${creepName})`);
 		}
 	}
 };
