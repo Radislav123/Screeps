@@ -5,15 +5,15 @@
  * Should be used only in "main/index.js" (main.js after flattering).
  */
 
-//creeps roles
-let roleHarvester = require("role/harvester");
-let roleUpgrader = require("role/upgrader");
-let roleBuilder = require("role/builder");
+//creep roles
+let harvester = require("role/harvester");
+let upgrader = require("role/upgrader");
+let builder = require("role/builder");
 
 
 // this order affects the spawn order
-let creepsRoles = {
-	workers: [roleHarvester, roleBuilder, roleUpgrader]
+let creepRoles = {
+	workers: [harvester, builder, upgrader]
 };
 
 
@@ -27,23 +27,23 @@ let spawnCreep = function (spawn) {
 };
 
 let spawnWorker = function (spawn) {
-	creepsRoles.workers.forEach(
+	creepRoles.workers.forEach(
 		function (workerRole) {
 			if (Game.time % workerRole.getSpawnTime() == 0 &&
 				spawn.canCreateCreep(workerRole.body) == OK &&
-				Memory.creepsNumbers.workers[workerRole.role] < Memory.maxWorkersNumber[workerRole.role] &&
+				Memory.creepNumbers.worker[workerRole.roleName] < Memory.maxWorkerNumbers[workerRole.roleName] &&
 				Memory.spawning == undefined) {
 				workerRole.spawnCreep(spawn);
-				Memory.spawning = workerRole.role;
-				Memory.creepsNumbers.workers[workerRole.role]++;
+				Memory.spawning = workerRole.roleName;
+				Memory.creepNumbers.worker[workerRole.roleName]++;
 			}
 			if (spawn.spawning) {
 				if (Game.time % workerRole.getSpawnTime() == 1 &&
-					Memory.spawning == workerRole.role) {
+					Memory.spawning == workerRole.roleName) {
 					workerRole.assignSourceToWorker(Game.creeps[spawn.spawning.name]);
 				}
 				if (spawn.spawning.remainingTime == 1 &&
-					Memory.spawning == workerRole.role) {
+					Memory.spawning == workerRole.roleName) {
 					Memory.spawning = undefined;
 				}
 			}

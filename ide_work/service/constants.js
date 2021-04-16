@@ -7,8 +7,17 @@
 //screeps find constants
 //https://screeps.fandom.com/wiki/Find_Constants
 
-const roleNames = {
-	workers: ["harvester", "builder", "upgrader"]
+
+const projectCreepRoleGroups = {
+	worker: "worker",
+};
+
+const projectCreepRoles = {
+	worker: {
+		harvester: "harvester",
+		builder: "builder",
+		upgrader: "upgrader"
+	}
 };
 
 const projectErrorCodes = {
@@ -16,6 +25,7 @@ const projectErrorCodes = {
 };
 
 module.exports = {
-	roleNames,
+	projectCreepRoleGroups,
+	projectCreepRoles,
 	projectErrorCodes
 };

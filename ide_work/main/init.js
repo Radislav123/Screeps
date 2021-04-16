@@ -9,7 +9,7 @@
 let roleWorker = require("role/worker");
 
 //service
-let roleNames = require("service/constants").roleNames;
+let projectCreepRoles = require("service/constants").projectCreepRoles;
 let filters = require("service/filters");
 let logger = require("service/logger");
 let service = require("service");
@@ -38,12 +38,12 @@ let initMemory = function (room) {
 	Memory.keyControllerId = room.controller.id;
 
 	//creeps numbers init
-	Memory.creepsNumbers = {};
-	for (let group in roleNames) {
-		Memory.creepsNumbers[group] = {};
-		roleNames[group].forEach(
+	Memory.creepNumbers = {};
+	for (let group in projectCreepRoles) {
+		Memory.creepNumbers[group] = {};
+		Object.values(projectCreepRoles[group]).forEach(
 			function (roleName) {
-				Memory.creepsNumbers[group][roleName] = 0;
+				Memory.creepNumbers[group][roleName] = 0;
 			}
 		);
 	}
@@ -53,17 +53,14 @@ let initMemory = function (room) {
 
 let initWorkersLimits = function () {
 	let workersPerSource = {};
-	//harvester
-	workersPerSource[roleNames.workers[0]] = 3;
-	//builder
-	workersPerSource[roleNames.workers[1]] = 3;
-	//upgrader
-	workersPerSource[roleNames.workers[2]] = 4;
+	workersPerSource[projectCreepRoles.worker.harvester] = 3;
+	workersPerSource[projectCreepRoles.worker.builder] = 3;
+	workersPerSource[projectCreepRoles.worker.upgrader] = 4;
 
-	Memory.maxWorkersNumber = {};
+	Memory.maxWorkerNumbers = {};
 	let safeSourcesNumber = filters.getSafeSources().length;
 	for (let workerRole in workersPerSource) {
-		Memory.maxWorkersNumber[workerRole] = safeSourcesNumber * workersPerSource[workerRole];
+		Memory.maxWorkerNumbers[workerRole] = safeSourcesNumber * workersPerSource[workerRole];
 	}
 
 	logger.info(`Workers limits were inited (time : ${Game.time}).`);

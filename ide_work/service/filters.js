@@ -5,72 +5,73 @@
  */
 
 //service
-let roleNames = require("service/constants").roleNames;
+let projectCreepRoles = require("service/constants").projectCreepRoles;
+let projectCreepRoleGroups = require("service/constants").projectCreepRoleGroups;
 let service = require("service/index");
 
 
 /**
- * Return array of creeps with specified role.
+ * Return array of creeps with specified roleName.
  *
- * @param {String} group of creep role
- * @param {number} number of creep role in the group
+ * @param {String} groupName of creep roleName
+ * @param {number} roleName of creep roleName in the group
  *
  * @return {[]} array of creeps
  */
-let getCreepsWithRole = function (group, number = undefined) {
-	let creeps = [];
-	if (number == undefined) {
-		//find only by group
+let getCreepsByGroupAndRole = function (groupName, roleName = undefined) {
+	let found_creeps = [];
+	if (roleName == undefined) {
+		//find only by group name
 		for (let creepName in Game.creeps) {
-			if (roleNames[group].includes(Game.creeps[creepName].memory.role)) {
-				creeps.push(Game.creeps[creepName])
+			if (projectCreepRoles[groupName].includes(Game.creeps[creepName].memory.roleName)) {
+				found_creeps.push(Game.creeps[creepName])
 			}
 		}
 	} else {
-		//find by group and number
+		//find by group and role names
 		for (let creepName in Game.creeps) {
-			if (Game.creeps[creepName].memory.role == roleNames[group][number]) {
-				creeps.push(Game.creeps[creepName])
+			if (Game.creeps[creepName].memory.roleName == projectCreepRoles[groupName][roleName]) {
+				found_creeps.push(Game.creeps[creepName])
 			}
 		}
 	}
-	return creeps;
+	return found_creeps;
 };
 
 /**
- * Return array of creeps with harvester role.
+ * Return array of creeps with harvester roleName.
  *
  * @return {[]} array of creeps
  */
 let getHarvesters = function () {
-	return getCreepsWithRole("workers", 0);
+	return getCreepsByGroupAndRole(projectCreepRoleGroups.worker, projectCreepRoles.worker.harvester);
 };
 
 /**
- * Return array of creeps with builder role.
+ * Return array of creeps with builder roleName.
  *
  * @return {[]} array of creeps
  */
 let getBuilders = function () {
-	return getCreepsWithRole("workers", 1);
+	return getCreepsByGroupAndRole(projectCreepRoleGroups.worker, projectCreepRoles.worker.builder);
 };
 
 /**
- * Return array of creeps with upgrader role.
+ * Return array of creeps with upgrader roleName.
  *
  * @return {[]} array of creeps
  */
 let getUpgraders = function () {
-	return getCreepsWithRole("workers", 2);
+	return getCreepsByGroupAndRole(projectCreepRoleGroups.worker, projectCreepRoles.worker.upgrader);
 };
 
 /**
- * Return array of creeps with workers roles.
+ * Return array of creeps with worker roles.
  *
  * @return {[]} array of creeps
  */
 let getWorkers = function () {
-	return getCreepsWithRole("workers");
+	return getCreepsByGroupAndRole(projectCreepRoleGroups.worker);
 };
 
 

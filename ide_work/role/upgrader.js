@@ -9,14 +9,14 @@
 let worker = require("role/worker");
 
 //service
-let role = require("service/constants").roleNames.workers[2];
+let roleName = require("service/constants").projectCreepRoles.worker.upgrader;
 
 
 //upgrader.specificTask is stored as worker.specificTask
 //to avoid circular reference
 let upgrader = Object.create(worker);
 upgrader.super = worker;
-upgrader.role = role;
+upgrader.roleName = roleName;
 
 /**
  * Spawn the new upgrader creep.

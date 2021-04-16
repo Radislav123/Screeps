@@ -6,16 +6,16 @@
  */
 
 //creeps roles
-let roleHarvester = require("role/harvester");
-let roleUpgrader = require("role/upgrader");
-let roleBuilder = require("role/builder");
+let harvester = require("role/harvester");
+let upgrader = require("role/upgrader");
+let builder = require("role/builder");
 
 //service
 let filters = require("service/filters");
 
 
 /**
- * Gives all creeps a job.
+ * Gives all creeps job.
  */
 let makeJobs = function () {
 	makeWorkersJobs()
@@ -25,17 +25,17 @@ let makeJobs = function () {
 let makeWorkersJobs = function () {
 	filters.getHarvesters().forEach(
 		function (creep) {
-			roleHarvester.work(creep);
+			harvester.work(creep);
 		}
 	);
 	filters.getBuilders().forEach(
 		function (creep) {
-			roleBuilder.work(creep);
+			builder.work(creep);
 		}
 	);
 	filters.getUpgraders().forEach(
 		function (creep) {
-			roleUpgrader.work(creep);
+			upgrader.work(creep);
 		}
 	);
 };

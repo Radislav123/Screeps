@@ -6,7 +6,7 @@
  */
 
 //service
-let roleNames = require("service/constants").roleNames;
+let projectCreepRoles = require("service/constants").projectCreepRoles;
 let logger = require("service/logger");
 let service = require("service");
 
@@ -22,10 +22,10 @@ let utilizeCreeps = function () {
 		if (!Game.creeps[creepName]) {
 			let creep = Memory.creeps[creepName];
 
-			if (roleNames.workers.includes(creep.role)) {
-				utilizeWorker(creepName, creep.role, creep.sourceId);
+			if (projectCreepRoles.worker.includes(creep.roleName)) {
+				utilizeWorker(creepName, creep.roleName, creep.sourceId);
 			} else {
-				logger.warning(`Could not utilize creep correctly because of unknown role : ${creep.role}`);
+				logger.warning(`Could not utilize creep correctly because of unknown role : ${creep.roleName}`);
 			}
 
 			//deletes creep memory
@@ -44,8 +44,8 @@ let utilizeCreeps = function () {
  * @param {String} sourceId
  */
 let utilizeWorker = function (creepName, creepRole, sourceId) {
-	Memory.sources[service.getSourceNumberById(sourceId)].assignedCreepsNumber--;
-	Memory.creepsNumbers.workers[creepRole]--;
+	Memory.sources[service.getSourceNumberById(sourceId)].assignedCreepsAmount--;
+	Memory.creepNumbers.worker[creepRole]--;
 	logger.info(`Utilizing worker (${creepName}).`);
 };
 

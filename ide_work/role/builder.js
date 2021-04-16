@@ -9,14 +9,14 @@
 let roleWorker = require("role/worker");
 
 //service
-let role = require("service/constants").roleNames.workers[1];
+let roleName = require("service/constants").projectCreepRoles.worker.builder;
 let projectErrorCodes = require("service/constants").projectErrorCodes;
 let filters = require("service/filters");
 
 
 let builder = Object.create(roleWorker);
 builder.super = roleWorker;
-builder.role = role;
+builder.roleName = roleName;
 
 /**
  * Spawn the new harvester creep.

@@ -15,10 +15,10 @@ let logger = require("service/logger");
 let service = require("service");
 
 
-//abstract role
+//abstract roleName
 let worker = Object.create(baseRole);
 worker.super = baseRole;
-worker.role = undefined;
+worker.roleName = undefined;
 worker.body = [WORK, CARRY, MOVE];
 
 /**
@@ -103,13 +103,13 @@ worker.specificTask = function (creep) {
  */
 worker.getLessLoadedSourceId = function () {
 	let sources = Memory.sources;
-	let minCreepsNumber = sources[0].assignedCreepsNumber;
+	let minCreepsAmount = sources[0].assignedCreepsAmount;
 	let minCreepsSourceNumber = 0;
 
 	sources.forEach(
 		function (source, sourceNumber) {
-			if (source.assignedCreepsNumber < minCreepsNumber && !source.isDangerous) {
-				minCreepsNumber = source.assignedCreepsNumber.length;
+			if (source.assignedCreepsAmount < minCreepsAmount && !source.isDangerous) {
+				minCreepsAmount = source.assignedCreepsAmount.length;
 				minCreepsSourceNumber = sourceNumber;
 			}
 		}
@@ -128,8 +128,8 @@ worker.getLessLoadedSourceId = function () {
 worker.assignSourceToWorker = function (creep) {
 	let [sourceId, sourceNumber] = this.getLessLoadedSourceId();
 	creep.memory.sourceId = sourceId;
-	Memory.sources[sourceNumber].assignedCreepsNumber++;
-	logger.info(`Creep (name : ${creep.name}) was assigned to the source (id : ${sourceId}).`);
+	Memory.sources[sourceNumber].assignedCreepsAmount++;
+	logger.info(`The creep (name : ${creep.name}) was assigned to the source (id : ${sourceId}).`);
 	return sourceId;
 };
 
@@ -147,7 +147,7 @@ worker.initializeSources = function (room) {
 				//source structure
 				{
 					id: defaultSource.id,
-					assignedCreepsNumber: 0,
+					assignedCreepsAmount: 0,
 					isDangerous: false
 				}
 			)
