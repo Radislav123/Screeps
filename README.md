@@ -22,7 +22,9 @@
 2) to have access to game constants (such as `RESOURCE_ENERGY`)
     run [*export_screeps_autocomplete_constants.py*](python_scripts/export_screeps_autocomplete_constants.py)
 3) to prepare codebase to use in game 
-    run [*js_modules_flattener.py*](python_scripts/js_modules_flattener.py)
+   run [*js_modules_flattener.py*](python_scripts/js_modules_flattener.py)
+    1) files rename like `main/init.js` => `main.init.js` (folder name becomes part of a name),
+       excluding `index.js` files, they rename  like `main/index.js` => `main.js` (folder name become whole name)
 4) python scripts settings are stored in [*config.ini*](python_scripts/config.ini)
    ([*supported structure*](https://docs.python.org/3/library/configparser.html#supported-ini-file-structure))
 
