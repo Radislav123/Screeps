@@ -77,8 +77,37 @@ let initWorkerLimits = function () {
 };
 
 let initSources = function (room) {
-	roleWorker.initializeSources(room);
+	initializeSources(room);
 	logger.info(`Sources were inited (time : ${Game.time}).`);
+};
+
+/**
+ * Memorize room sources in Memory and clear creep(s).memory.sourceId.
+ *
+ * @param {Room} room
+ */
+let initializeSources = function (room) {
+	let foundSources = room.find(FIND_SOURCES);
+	let sources = [];
+	foundSources.forEach(
+		function (foundSource) {
+			sources.push(
+				//source structure
+				{
+					id: foundSource.id,
+					assignedCreepsAmount: 0,
+					isDangerous: false,
+					position: foundSource.pos,
+				}
+			)
+		}
+	);
+	filters.getWorkers().forEach(
+		function (creep) {
+			creep.memory.sourceId = undefined;
+		}
+	);
+	Memory.sources = sources;
 };
 
 let initHostiles = function (room) {

@@ -135,35 +135,6 @@ worker.assignSourceToWorker = function (creep) {
 	return source;
 };
 
-/**
- * Memorize room sources in Memory and clear creep(s).memory.sourceId.
- *
- * @param {Room} room
- */
-worker.initializeSources = function (room) {
-	let foundSources = room.find(FIND_SOURCES);
-	let sources = [];
-	foundSources.forEach(
-		function (foundSource) {
-			sources.push(
-				//source structure
-				{
-					id: foundSource.id,
-					assignedCreepsAmount: 0,
-					isDangerous: false,
-					position: foundSource.pos,
-				}
-			)
-		}
-	);
-	filters.getWorkers().forEach(
-		function (creep) {
-			creep.memory.sourceId = undefined;
-		}
-	);
-	Memory.sources = sources;
-};
-
 worker.assignSourcesToAllWorkers = function () {
 	filters.getWorkers().forEach(
 		function (creep) {
