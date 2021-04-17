@@ -19,15 +19,26 @@ harvester.super = worker;
 harvester.roleName = roleName;
 
 /**
- * Spawn the new harvester creep.
+ * Spawn harvester.
  *
- * @param {StructureSpawn} spawn - spawn that will make the creep
+ * @param {StructureSpawn} spawn that will create the creep
  *
  * @return {number} spawnCode
  */
 harvester.spawnCreep = function (spawn) {
 	return this.super.spawnCreep(this, spawn);
 };
+
+/**
+ * Check can a harvester be spawned.
+ *
+ * @param {StructureSpawn} spawn that will check availability to spawn
+ *
+ * @return {number} spawnCode
+ */
+harvester.canSpawnCreep = function (spawn) {
+	return this.super.canSpawnCreep(this, spawn)
+}
 
 /**
  * Creep task to work (harvest and store energy).

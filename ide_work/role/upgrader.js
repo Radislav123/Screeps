@@ -19,15 +19,26 @@ upgrader.super = worker;
 upgrader.roleName = roleName;
 
 /**
- * Spawn the new upgrader creep.
+ * Spawn upgrader.
  *
- * @param {StructureSpawn} spawn - spawn that will make the creep
+ * @param {StructureSpawn} spawn that will create the creep
  *
  * @return {number} spawnCode
  */
 upgrader.spawnCreep = function (spawn) {
 	return this.super.spawnCreep(this, spawn);
 };
+
+/**
+ * Check can an upgrader be spawned.
+ *
+ * @param {StructureSpawn} spawn that will check availability to spawn
+ *
+ * @return {number} spawnCode
+ */
+upgrader.canSpawnCreep = function (spawn) {
+	return this.super.canSpawnCreep(this, spawn)
+}
 
 /**
  * Creep task to work (harvest energy and upgrade controller).

@@ -27,23 +27,25 @@ let spawnCreep = function (spawn) {
 };
 
 let spawnWorker = function (spawn) {
+	//spawn evaluating each spawnTimes game tick
+	let spawnTime = 10;
 	creepRoles.workers.forEach(
 		function (workerRole) {
-			if (Game.time % workerRole.getSpawnTime() == 0 &&
-				spawn.canCreateCreep(workerRole.body) == OK &&
-				Memory.creepNamesByRole.worker[workerRole.roleName].length < Memory.maxWorkerNumbers[workerRole.roleName] &&
-				Memory.spawning == undefined) {
+			if (Game.time % spawnTime == 0 &&
+				workerRole.canSpawnCreep(spawn) == OK &&
+				Memory.creepNamesByRole.worker[workerRole.roleName].length < Memory.maxCreepNumbers.worker[workerRole.roleName] &&
+				spawn.memory.spawningCreepRoleName == undefined) {
 				workerRole.spawnCreep(spawn);
-				Memory.spawning = workerRole.roleName;
+				spawn.memory.spawningCreepRoleName = workerRole.roleName;
 			}
 			if (spawn.spawning) {
-				if (Game.time % workerRole.getSpawnTime() == 1 &&
-					Memory.spawning == workerRole.roleName) {
+				if (Game.time % spawnTime == 1 &&
+					spawn.memory.spawningCreepRoleName == workerRole.roleName) {
 					workerRole.assignSourceToWorker(Game.creeps[spawn.spawning.name]);
 				}
 				if (spawn.spawning.remainingTime == 1 &&
-					Memory.spawning == workerRole.roleName) {
-					Memory.spawning = undefined;
+					spawn.memory.spawningCreepRoleName == workerRole.roleName) {
+					spawn.memory.spawningCreepRoleName = undefined;
 				}
 			}
 		}

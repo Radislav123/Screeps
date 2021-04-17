@@ -15,7 +15,7 @@ let baseRole = {};
 baseRole.roleName = undefined;
 baseRole.groupName = undefined;
 baseRole.body = undefined;
-baseRole.getSpawnTime = function () {
+baseRole.getSpawnDuration = function () {
 	let spawnTime = undefined;
 	if (this.body != undefined) {
 		spawnTime = this.body.length * 3;
@@ -27,7 +27,7 @@ baseRole.getSpawnTime = function () {
  * Spawn a creep.
  *
  * @param {Object} creepRole
- * @param {StructureSpawn} spawn that will make the creep
+ * @param {StructureSpawn} spawn that will create the creep
  * @param {{}} creepMemory of creating creep
  *
  * @return {number} spawnCode
@@ -44,5 +44,19 @@ baseRole.spawnCreep = function (creepRole, spawn, creepMemory) {
 
 	return spawnCode;
 };
+
+/**
+ * Check can a creep be spawned.
+ * Should be overridden in each creep role (harvester is the example).
+ *
+ * @param {Object} creepRole
+ * @param {StructureSpawn} spawn that will check availability to spawn
+ *
+ * @return {number} spawnCode
+ */
+baseRole.canSpawnCreep = function (creepRole, spawn) {
+	let creepName = creepRole.roleName + Game.time
+	return spawn.spawnCreep(creepRole.body, creepName, {"dryRun": true});
+}
 
 module.exports = baseRole;
