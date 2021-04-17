@@ -47,7 +47,6 @@ let utilizeCreeps = function () {
  */
 let utilizeWorker = function (creepName, creepRole, sourceId) {
 	Memory.sources[service.getSourceNumberById(sourceId)].assignedCreepsAmount--;
-	Memory.creepNumbers.worker[creepRole]--;
 	logger.info(`Utilizing worker (${creepName}).`);
 };
 
