@@ -35,7 +35,6 @@ let spawnWorker = function (spawn) {
 				Memory.spawning == undefined) {
 				workerRole.spawnCreep(spawn);
 				Memory.spawning = workerRole.roleName;
-				Memory.creepNumbers.worker[workerRole.roleName]++;
 			}
 			if (spawn.spawning) {
 				if (Game.time % workerRole.getSpawnTime() == 1 &&

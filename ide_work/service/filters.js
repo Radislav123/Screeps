@@ -8,10 +8,12 @@
 let projectCreepRoles = require("service/constants").projectCreepRoles;
 let projectCreepRoleGroups = require("service/constants").projectCreepRoleGroups;
 let service = require("service/index");
+// noinspection JSUnusedLocalSymbols
+let logger = require("service/logger");
 
 
 /**
- * Return array of creeps with specified roleName.
+ * Return array of creeps with specified groupName or roleName.
  *
  * @param {String} groupName of creep roleName
  * @param {number} roleName of creep roleName in the group
@@ -19,23 +21,25 @@ let service = require("service/index");
  * @return {[]} array of creeps
  */
 let getCreepsByGroupAndRole = function (groupName, roleName = undefined) {
-	let found_creeps = [];
+	let foundCreeps = [];
 	if (roleName == undefined) {
 		//find only by group name
-		for (let creepName in Game.creeps) {
-			if (projectCreepRoles[groupName].includes(Game.creeps[creepName].memory.roleName)) {
-				found_creeps.push(Game.creeps[creepName])
-			}
+		for (let roleName in Memory.creepNamesByRole[groupName]) {
+			Memory.creepNamesByRole[groupName][roleName].forEach(
+				function (creepName) {
+					foundCreeps.push(Game.creeps[creepName])
+				}
+			)
 		}
 	} else {
 		//find by group and role names
-		for (let creepName in Game.creeps) {
-			if (Game.creeps[creepName].memory.roleName == projectCreepRoles[groupName][roleName]) {
-				found_creeps.push(Game.creeps[creepName])
+		Memory.creepNamesByRole[groupName][roleName].forEach(
+			function (creepName) {
+				foundCreeps.push(Game.creeps[creepName])
 			}
-		}
+		)
 	}
-	return found_creeps;
+	return foundCreeps;
 };
 
 /**

@@ -30,6 +30,8 @@ let utilizeCreeps = function () {
 
 			//deletes creep memory
 			delete Memory.creeps[creepName];
+			//deletes creepName from Memory.creepNamesByRole
+			delete Memory.creepNamesByRole[creep.groupName][creep.roleName]
 
 			logger.info(`Utilizing creep memory.${ait}(creep name : ${creepName})`);
 		}

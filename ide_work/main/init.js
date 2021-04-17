@@ -34,16 +34,20 @@ let initMemory = function (room) {
 	delete Memory.sources;
 	delete Memory.spawning;
 	delete Memory.creeps;
+	delete Memory.creepNamesByRole;
 	Memory.spawning = undefined;
 	Memory.keyControllerId = room.controller.id;
 
-	//creeps numbers init
+	//creepNumbers and creepNamesByRole init
 	Memory.creepNumbers = {};
+	Memory.creepNamesByRole = {};
 	for (let group in projectCreepRoles) {
 		Memory.creepNumbers[group] = {};
+		Memory.creepNamesByRole[group] = {};
 		Object.values(projectCreepRoles[group]).forEach(
 			function (roleName) {
 				Memory.creepNumbers[group][roleName] = 0;
+				Memory.creepNamesByRole[group][roleName] = [];
 			}
 		);
 	}
