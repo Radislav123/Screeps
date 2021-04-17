@@ -131,7 +131,7 @@ worker.assignSourceToWorker = function (creep) {
 	let [source, sourceNumber] = this.getLessLoadedSource();
 	creep.memory.sourceId = source.id;
 	Memory.sources[sourceNumber].assignedCreepsAmount++;
-	logger.info(`The creep (name : ${creep.name}) was assigned to the source (id : ${source.id}).`);
+	logger.info(`The creep (name : ${creep.name}) was assigned to the source (position : ${JSON.stringify(source.position)}).`);
 	return source;
 };
 
@@ -150,7 +150,8 @@ worker.initializeSources = function (room) {
 				{
 					id: foundSource.id,
 					assignedCreepsAmount: 0,
-					isDangerous: false
+					isDangerous: false,
+					position: foundSource.pos,
 				}
 			)
 		}
