@@ -15,7 +15,7 @@ let filters = require("service.filters");
 
 
 /**
- * Gives all creeps jobs.
+ * Gives all creeps job.
  */
 let makeJobs = function () {
 	makeWorkerJobs();

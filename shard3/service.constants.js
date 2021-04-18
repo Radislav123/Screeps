@@ -7,7 +7,7 @@
 //screeps find constants
 //https://screeps.fandom.com/wiki/Find_Constants
 
-//todo: remove this constant?
+
 const projectCreepRoleGroups = {
 	worker: "worker",
 };

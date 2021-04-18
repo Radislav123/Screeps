@@ -55,6 +55,7 @@ baseRole.reinitCreepMemory = function (creep, creepRole, creepMemory) {
 	creepMemory["roleName"] = creepRole.roleName;
 	creepMemory["groupName"] = creepRole.groupName;
 	creepMemory["playingRole"] = false;
+	creep.memory = creepMemory;
 	logger.info(`Creeps (name : ${creep.name}) memory was reinited.`)
 }
 
