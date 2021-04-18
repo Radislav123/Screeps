@@ -13,7 +13,7 @@ const projectCreepRoleGroups = {
 };
 
 const projectCreepRoles = {
-	worker: {
+	[projectCreepRoleGroups.worker]: {
 		harvester: "harvester",
 		builder: "builder",
 		upgrader: "upgrader"

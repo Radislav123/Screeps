@@ -11,12 +11,11 @@ let baseRole = require("role.baseRole");
 //service
 let groupName = require("service.constants").projectCreepRoleGroups.worker;
 let projectErrorCodes = require("service.constants").projectErrorCodes;
-let filters = require("service.filters");
 let logger = require("service.logger");
 let service = require("service");
 
 
-//abstract roleName
+//abstract role
 let worker = Object.create(baseRole);
 worker.super = baseRole;
 worker.roleName = undefined;
@@ -32,12 +31,24 @@ worker.body = [WORK, CARRY, MOVE];
  * @return {number} spawnCode
  */
 worker.spawnCreep = function (creepRole, spawn) {
-	let memory = {
-		sourceId: 0,
-		playingRole: false
+	let creepMemory = {
+		assignedSourceId: 0,
 	};
-	return this.super.spawnCreep(creepRole, spawn, memory);
+	return this.super.spawnCreep(creepRole, spawn, creepMemory);
 };
+
+/**
+ * Reinit creeps memory.
+ *
+ * @param {Creep} creep
+ * @param {Object} creepRole
+ */
+worker.reinitCreepMemory = function (creep, creepRole) {
+	let creepMemory = {
+		assignedSourceId: 0,
+	};
+	return this.super.reinitCreepMemory(creep, creepRole, creepMemory)
+}
 
 /**
  * Creep task to work (harvest and playRole).
@@ -74,7 +85,7 @@ worker.work = function (creep, specificTask) {
  * @param {Creep} creep - creep instance to execute task
  */
 worker.harvest = function (creep) {
-	let source = Game.getObjectById(creep.memory.sourceId);
+	let source = Game.getObjectById(creep.memory.assignedSourceId);
 	if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
 		creep.moveTo(source);
 	}
@@ -101,7 +112,7 @@ worker.specificTask = function (creep) {
 /**
  * Get the most unloaded source to harvest from.
  *
- * @return {[]} [sourceId, sourceNumber] - [the most unloaded source id, source number in memory]
+ * @return {[]} [assignedSourceId, sourceNumber] - [the most unloaded source id, source number in memory]
  */
 worker.getLessLoadedSource = function () {
 	let sources = Memory.sources;
@@ -127,21 +138,12 @@ worker.getLessLoadedSource = function () {
  *
  * @return {Source} assigned source
  */
-worker.assignSourceToWorker = function (creep) {
+worker.assignToSource = function (creep) {
 	let [source, sourceNumber] = this.getLessLoadedSource();
-	creep.memory.sourceId = source.id;
+	creep.memory.assignedSourceId = source.id;
 	Memory.sources[sourceNumber].assignedCreepsAmount++;
 	logger.info(`The creep (name : ${creep.name}) was assigned to the source (position : ${JSON.stringify(source.position)}).`);
 	return source;
-};
-
-worker.assignSourcesToAllWorkers = function () {
-	filters.getWorkers().forEach(
-		function (creep) {
-			this.assignSourceToWorker(creep);
-		}
-	);
-	logger.info("All sources were assigned to workers.");
 };
 
 

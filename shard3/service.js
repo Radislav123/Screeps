@@ -4,7 +4,6 @@
  * Module with service functions.
  */
 
-
 //service
 let logger = require("service.logger");
 
@@ -45,16 +44,16 @@ let isInProgress = function (structure) {
 /**
  * Know is capacity not full.
  *
- * @param {String} sourceId
+ * @param {String} assignedSourceId
  *
  * @return {number|null} index in Memory.sources
  */
-let getSourceNumberById = function (sourceId) {
+let getSourceNumberById = function (assignedSourceId) {
 	let position = -1;
 	let found = false;
 	Memory.sources.forEach(
 		function (source, index) {
-			if (sourceId.localeCompare(source.id) == 0) {
+			if (assignedSourceId.localeCompare(source.id) == 0) {
 				found = true;
 				position = index;
 			}
@@ -92,5 +91,5 @@ module.exports = {
 	isEmpty,
 	isInProgress,
 	getSourceNumberById,
-	markDangerousSources
+	markDangerousSources,
 };

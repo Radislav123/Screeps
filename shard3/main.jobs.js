@@ -15,14 +15,14 @@ let filters = require("service.filters");
 
 
 /**
- * Gives all creeps job.
+ * Gives all creeps jobs.
  */
 let makeJobs = function () {
-	makeWorkersJobs()
+	makeWorkerJobs();
 };
 
 
-let makeWorkersJobs = function () {
+let makeWorkerJobs = function () {
 	filters.getHarvesters().forEach(
 		function (creep) {
 			harvester.work(creep);

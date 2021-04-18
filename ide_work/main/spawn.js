@@ -10,10 +10,13 @@ let harvester = require("role/harvester");
 let upgrader = require("role/upgrader");
 let builder = require("role/builder");
 
+//service
+let projectCreepRoleGroups = require("service/constants").projectCreepRoleGroups;
+
 
 // this order affects the spawn order
 let creepRoles = {
-	workers: [harvester, builder, upgrader]
+	[projectCreepRoleGroups.worker]: [harvester, builder, upgrader]
 };
 
 
@@ -29,7 +32,7 @@ let spawnCreep = function (spawn) {
 let spawnWorker = function (spawn) {
 	//spawn evaluating each spawnTimes game tick
 	let spawnTime = 10;
-	creepRoles.workers.forEach(
+	creepRoles.worker.forEach(
 		function (workerRole) {
 			if (Game.time % spawnTime == 0 &&
 				workerRole.canSpawnCreep(spawn) == OK &&
@@ -41,7 +44,7 @@ let spawnWorker = function (spawn) {
 			if (spawn.spawning) {
 				if (Game.time % spawnTime == 1 &&
 					spawn.memory.spawningCreepRoleName == workerRole.roleName) {
-					workerRole.assignSourceToWorker(Game.creeps[spawn.spawning.name]);
+					workerRole.assignToSource(Game.creeps[spawn.spawning.name]);
 				}
 				if (spawn.spawning.remainingTime == 1 &&
 					spawn.memory.spawningCreepRoleName == workerRole.roleName) {

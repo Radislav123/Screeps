@@ -28,22 +28,35 @@ baseRole.getSpawnDuration = function () {
  *
  * @param {Object} creepRole
  * @param {StructureSpawn} spawn that will create the creep
- * @param {{}} creepMemory of creating creep
+ * @param {Object} creepMemory
  *
  * @return {number} spawnCode
  */
 baseRole.spawnCreep = function (creepRole, spawn, creepMemory) {
 	creepMemory["roleName"] = creepRole.roleName;
 	creepMemory["groupName"] = creepRole.groupName;
+	creepMemory["playingRole"] = false;
 
 	let creepName = creepRole.roleName + Game.time
 	let spawnCode = spawn.spawnCreep(creepRole.body, creepName, {"memory": creepMemory});
-	logger.info(`Creep spawn was started (spawnCode : ${spawnCode}).`);
-
 	Memory.creepNamesByRole[creepRole.groupName][creepRole.roleName].push(creepName)
-
+	logger.info(`Creep spawn was started (spawnCode : ${spawnCode}).`);
 	return spawnCode;
 };
+
+/**
+ * Reinit creeps memory.
+ *
+ * @param {Creep} creep
+ * @param {Object} creepRole
+ * @param {Object} creepMemory
+ */
+baseRole.reinitCreepMemory = function (creep, creepRole, creepMemory) {
+	creepMemory["roleName"] = creepRole.roleName;
+	creepMemory["groupName"] = creepRole.groupName;
+	creepMemory["playingRole"] = false;
+	logger.info(`Creeps (name : ${creep.name}) memory was reinited.`)
+}
 
 /**
  * Check can a creep be spawned.

@@ -19,7 +19,7 @@ let utilizeCreeps = function () {
 			let creep = Memory.creeps[creepName];
 
 			if (Object.keys(projectCreepRoles.worker).includes(creep.roleName)) {
-				utilizeWorker(creepName, creep.roleName, creep.sourceId);
+				utilizeWorker(creepName, creep.roleName, creep.assignedSourceId);
 			} else {
 				logger.warning(`Could not utilize creep correctly because of unknown role : ${creep.roleName}`);
 			}
@@ -40,10 +40,10 @@ let utilizeCreeps = function () {
  *
  * @param {String} creepName
  * @param {String} creepRole
- * @param {String} sourceId
+ * @param {String} assignedSourceId
  */
-let utilizeWorker = function (creepName, creepRole, sourceId) {
-	Memory.sources[service.getSourceNumberById(sourceId)].assignedCreepsAmount--;
+let utilizeWorker = function (creepName, creepRole, assignedSourceId) {
+	Memory.sources[service.getSourceNumberById(assignedSourceId)].assignedCreepsAmount--;
 	logger.info(`Worker was utilized (name : ${creepName}).`);
 };
 

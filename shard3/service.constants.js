@@ -7,13 +7,13 @@
 //screeps find constants
 //https://screeps.fandom.com/wiki/Find_Constants
 
-
+//todo: remove this constant?
 const projectCreepRoleGroups = {
 	worker: "worker",
 };
 
 const projectCreepRoles = {
-	worker: {
+	[projectCreepRoleGroups.worker]: {
 		harvester: "harvester",
 		builder: "builder",
 		upgrader: "upgrader"
