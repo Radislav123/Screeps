@@ -1,6 +1,7 @@
 # generated
 python_scripts/data/
-default/
+default/*
+!default/.gitkeep
 
 # game files
 .sync

@@ -38,7 +38,7 @@ baseRole.spawnCreep = function (creepRole, spawn, creepMemory) {
 
 	let creepName = creepRole.roleName + Game.time
 	let spawnCode = spawn.spawnCreep(creepRole.body, creepName, {"memory": creepMemory});
-	logger.info(`Spawning a creep (spawnCode : ${spawnCode}).`);
+	logger.info(`Creep spawn was started (spawnCode : ${spawnCode}).`);
 
 	Memory.creepNamesByRole[creepRole.groupName][creepRole.roleName].push(creepName)
 

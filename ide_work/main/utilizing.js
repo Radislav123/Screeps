@@ -10,15 +10,11 @@ let projectCreepRoles = require("service/constants").projectCreepRoles;
 let logger = require("service/logger");
 let service = require("service");
 
-
-let ait = "\n\t";
-
 /**
  * Utilize creeps.
  */
 let utilizeCreeps = function () {
 	for (let creepName in Memory.creeps) {
-		//ait - additionalInformationTransfer
 		if (!Game.creeps[creepName]) {
 			let creep = Memory.creeps[creepName];
 
@@ -31,9 +27,10 @@ let utilizeCreeps = function () {
 			//deletes creep memory
 			delete Memory.creeps[creepName];
 			//deletes creepName from Memory.creepNamesByRole
-			delete Memory.creepNamesByRole[creep.groupName][creep.roleName]
+			let creepNameIndex = Memory.creepNamesByRole[creep.groupName][creep.roleName].indexOf(creepName);
+			Memory.creepNamesByRole[creep.groupName][creep.roleName].splice(creepNameIndex, 1);
 
-			logger.info(`Utilizing creep memory.${ait}(creep name : ${creepName})`);
+			logger.info(`Creep (name : ${creepName}) memory: was utilized`);
 		}
 	}
 };
@@ -47,7 +44,7 @@ let utilizeCreeps = function () {
  */
 let utilizeWorker = function (creepName, creepRole, sourceId) {
 	Memory.sources[service.getSourceNumberById(sourceId)].assignedCreepsAmount--;
-	logger.info(`Utilizing worker (${creepName}).`);
+	logger.info(`Worker was utilized (name : ${creepName}).`);
 };
 
 module.exports = {
