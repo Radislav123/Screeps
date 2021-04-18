@@ -1,6 +1,9 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with service functions.
  */
+
 
 //service
 let logger = require("service.logger");
@@ -44,7 +47,7 @@ let isInProgress = function (structure) {
  *
  * @param {String} sourceId
  *
- * @return {number|null} position in Memory.sources
+ * @return {number|null} index in Memory.sources
  */
 let getSourceNumberById = function (sourceId) {
 	let position = -1;
@@ -54,7 +57,6 @@ let getSourceNumberById = function (sourceId) {
 			if (sourceId.localeCompare(source.id) == 0) {
 				found = true;
 				position = index;
-				return;
 			}
 		}
 	);

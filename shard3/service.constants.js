@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with constants.
  */
@@ -5,15 +7,25 @@
 //screeps find constants
 //https://screeps.fandom.com/wiki/Find_Constants
 
-const roleNames = {
-	workers: ["harvester", "builder", "upgrader"]
+
+const projectCreepRoleGroups = {
+	worker: "worker",
 };
 
-const errorCodes = {
+const projectCreepRoles = {
+	worker: {
+		harvester: "harvester",
+		builder: "builder",
+		upgrader: "upgrader"
+	}
+};
+
+const projectErrorCodes = {
 	ERR_NOT_ENOUGH_TARGETS: -999
 };
 
 module.exports = {
-	roleNames,
-	errorCodes
+	projectCreepRoleGroups,
+	projectCreepRoles,
+	projectErrorCodes
 };

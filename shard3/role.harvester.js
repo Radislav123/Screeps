@@ -1,39 +1,51 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with harvester creep role.
  * Harvest energy.
  */
 
-//creeps roles
-let roleWorker = require("role.worker");
+//creep roles
+let worker = require("role.worker");
 
 //service
-let role = require("service.constants").roleNames.workers[0];
-let errorCodes = require("service.constants").errorCodes;
+let roleName = require("service.constants").projectCreepRoles.worker.harvester;
+let projectErrorCodes = require("service.constants").projectErrorCodes;
 let filters = require("service.filters");
-let logger = require("service.logger");
 
 
-let roleHarvester = Object.create(roleWorker);
-roleHarvester.super = roleWorker;
-roleHarvester.role = role;
+let harvester = Object.create(worker);
+harvester.super = worker;
+harvester.roleName = roleName;
 
 /**
- * Spawn the new harvester creep.
+ * Spawn harvester.
  *
- * @param {StructureSpawn} spawn - spawn that will make the creep
+ * @param {StructureSpawn} spawn that will create the creep
  *
  * @return {number} spawnCode
  */
-roleHarvester.spawnCreep = function (spawn) {
+harvester.spawnCreep = function (spawn) {
 	return this.super.spawnCreep(this, spawn);
 };
+
+/**
+ * Check can a harvester be spawned.
+ *
+ * @param {StructureSpawn} spawn that will check availability to spawn
+ *
+ * @return {number} spawnCode
+ */
+harvester.canSpawnCreep = function (spawn) {
+	return this.super.canSpawnCreep(this, spawn)
+}
 
 /**
  * Creep task to work (harvest and store energy).
  *
  * @param {Creep} creep instance to execute task
  */
-roleHarvester.work = function (creep) {
+harvester.work = function (creep) {
 	this.super.work(creep, this.specificTask);
 };
 
@@ -44,7 +56,7 @@ roleHarvester.work = function (creep) {
  *
  * @return {number} OK (0) or error code
  */
-roleHarvester.specificTask = function (creep) {
+harvester.specificTask = function (creep) {
 	let errorCode = OK;
 	let targets = filters.getNotFullStructures(creep.room);
 	if (targets.length > 0) {
@@ -52,10 +64,10 @@ roleHarvester.specificTask = function (creep) {
 			creep.moveTo(targets[0]);
 		}
 	} else {
-		errorCode = errorCodes.ERR_NOT_ENOUGH_TARGETS;
+		errorCode = projectErrorCodes.ERR_NOT_ENOUGH_TARGETS;
 	}
 	return errorCode;
 };
 
 
-module.exports = roleHarvester;
+module.exports = harvester;

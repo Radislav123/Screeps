@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with logger.
  */
@@ -11,7 +13,7 @@ let colors = {
 	'3': '#809fff',
 	'4': '#e65c00',
 	'5': '#ff5050',
-	'6': '#008800'
+	'6': '#008800',
 };
 
 logger.info = function (message) {
@@ -32,6 +34,10 @@ logger.debug = function (message) {
 
 logger.warning = function (message) {
 	console.log(makeColorfulMessage("warning - " + message, colors[4]));
+};
+
+logger.error = function (message) {
+	console.log(makeColorfulMessage("error - " + message, colors[5]));
 };
 
 /**
@@ -78,6 +84,8 @@ let getFunctionCpuUsage = function (func, ...args) {
  * @param {String} colorCode in "#xxxxxx" format
  */
 let makeColorfulMessage = function (message, colorCode) {
+	//return '<span ' + colorCode + 'style="color: ; ">' + message + '</span>'; - does not color
+	//noinspection HtmlDeprecatedAttribute, HtmlDeprecatedTag
 	return '<font color="' + colorCode + '">' + message + '</font>';
 };
 

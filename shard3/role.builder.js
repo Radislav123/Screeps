@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with builder creep role.
  * Build structures.
@@ -7,33 +9,43 @@
 let roleWorker = require("role.worker");
 
 //service
-let role = require("service.constants").roleNames.workers[1];
-let errorCodes = require("service.constants").errorCodes;
+let roleName = require("service.constants").projectCreepRoles.worker.builder;
+let projectErrorCodes = require("service.constants").projectErrorCodes;
 let filters = require("service.filters");
-let logger = require("service.logger");
 
 
-let roleBuilder = Object.create(roleWorker);
-roleBuilder.super = roleWorker;
-roleBuilder.role = role;
+let builder = Object.create(roleWorker);
+builder.super = roleWorker;
+builder.roleName = roleName;
 
 /**
- * Spawn the new harvester creep.
+ * Spawn builder.
  *
- * @param {StructureSpawn} spawn that will make the creep
+ * @param {StructureSpawn} spawn that will create the creep
  *
  * @return {number} spawnCode
  */
-roleBuilder.spawnCreep = function (spawn) {
+builder.spawnCreep = function (spawn) {
 	return this.super.spawnCreep(this, spawn);
 };
+
+/**
+ * Check can a builder be spawned.
+ *
+ * @param {StructureSpawn} spawn that will check availability to spawn
+ *
+ * @return {number} spawnCode
+ */
+builder.canSpawnCreep = function (spawn) {
+	return this.super.canSpawnCreep(this, spawn)
+}
 
 /**
  * Creep task to work (harvest energy and build structures).
  *
  * @param {Creep} creep instance to execute task
  */
-roleBuilder.work = function (creep) {
+builder.work = function (creep) {
 	this.super.work(creep, this.specificTask);
 };
 
@@ -44,7 +56,7 @@ roleBuilder.work = function (creep) {
  *
  * @return {number} OK (0) or error code
  */
-roleBuilder.specificTask = function (creep) {
+builder.specificTask = function (creep) {
 	let errorCode = OK;
 	let targets = filters.getConstructionSites(creep.room);
 	if (targets.length > 0) {
@@ -52,10 +64,10 @@ roleBuilder.specificTask = function (creep) {
 			creep.moveTo(targets[0]);
 		}
 	} else {
-		errorCode = errorCodes.ERR_NOT_ENOUGH_TARGETS;
+		errorCode = projectErrorCodes.ERR_NOT_ENOUGH_TARGETS;
 	}
 	return errorCode;
 };
 
 
-module.exports = roleBuilder;
+module.exports = builder;

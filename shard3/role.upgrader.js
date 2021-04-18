@@ -1,41 +1,53 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module with upgrader creep role.
  * Harvest energy.
  */
 
 //creep roles
-let roleWorker = require("role.worker");
+let worker = require("role.worker");
 
 //service
-let role = require("service.constants").roleNames.workers[2];
-let logger = require("service.logger");
+let roleName = require("service.constants").projectCreepRoles.worker.upgrader;
 
 
-//roleUpgrader.specificTask is stored as roleWorker.specificTask
+//upgrader.specificTask is stored as worker.specificTask
 //to avoid circular reference
-let roleUpgrader = Object.create(roleWorker);
-roleUpgrader.super = roleWorker;
-roleUpgrader.role = role;
+let upgrader = Object.create(worker);
+upgrader.super = worker;
+upgrader.roleName = roleName;
 
 /**
- * Spawn the new upgrader creep.
+ * Spawn upgrader.
  *
- * @param {StructureSpawn} spawn - spawn that will make the creep
+ * @param {StructureSpawn} spawn that will create the creep
  *
  * @return {number} spawnCode
  */
-roleUpgrader.spawnCreep = function (spawn) {
+upgrader.spawnCreep = function (spawn) {
 	return this.super.spawnCreep(this, spawn);
 };
+
+/**
+ * Check can an upgrader be spawned.
+ *
+ * @param {StructureSpawn} spawn that will check availability to spawn
+ *
+ * @return {number} spawnCode
+ */
+upgrader.canSpawnCreep = function (spawn) {
+	return this.super.canSpawnCreep(this, spawn)
+}
 
 /**
  * Creep task to work (harvest energy and upgrade controller).
  *
  * @param {Creep} creep instance to execute task
  */
-roleUpgrader.work = function (creep) {
+upgrader.work = function (creep) {
 	this.super.work(creep, this.specificTask);
 };
 
 
-module.exports = roleUpgrader;
+module.exports = upgrader;

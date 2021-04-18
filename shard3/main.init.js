@@ -1,13 +1,15 @@
+// noinspection JSUnresolvedVariable
+
 /**
  * Module responsible for init actions.
- * Should be used only in "main.js".
+ * Should be used only in "main/index.js" (main.js after flattering).
  */
 
 //creeps roles
 let roleWorker = require("role.worker");
 
 //service
-let roleNames = require("service.constants").roleNames;
+let projectCreepRoles = require("service.constants").projectCreepRoles;
 let filters = require("service.filters");
 let logger = require("service.logger");
 let service = require("service");
@@ -22,7 +24,7 @@ let init = function (room) {
 	initMemory(room);
 	initSources(room);
 	initHostiles(room);
-	initWorkersLimits();
+	initCreepLimits()
 	if (Memory.reInit) {
 		roleWorker.assignSourcesToAllWorkers();
 	}
@@ -30,18 +32,17 @@ let init = function (room) {
 
 let initMemory = function (room) {
 	delete Memory.sources;
-	delete Memory.spawning;
 	delete Memory.creeps;
-	Memory.spawning = undefined;
+	delete Memory.creepNamesByRole;
 	Memory.keyControllerId = room.controller.id;
 
-	//creeps numbers init
-	Memory.creepsNumbers = {};
-	for (let group in roleNames) {
-		Memory.creepsNumbers[group] = {};
-		roleNames[group].forEach(
+	//creepNamesByRole init
+	Memory.creepNamesByRole = {};
+	for (let group in projectCreepRoles) {
+		Memory.creepNamesByRole[group] = {};
+		Object.values(projectCreepRoles[group]).forEach(
 			function (roleName) {
-				Memory.creepsNumbers[group][roleName] = 0;
+				Memory.creepNamesByRole[group][roleName] = [];
 			}
 		);
 	}
@@ -49,27 +50,64 @@ let initMemory = function (room) {
 	logger.info(`Memory was inited (time : ${Game.time}).`);
 };
 
-let initWorkersLimits = function () {
-	let workersPerSource = {};
-	//harvester
-	workersPerSource[roleNames.workers[0]] = 3;
-	//builder
-	workersPerSource[roleNames.workers[1]] = 3;
-	//upgrader
-	workersPerSource[roleNames.workers[2]] = 4;
-
-	Memory.maxWorkersNumber = {};
-	let safeSourcesNumber = filters.getSafeSources().length;
-	for (let workerRole in workersPerSource) {
-		Memory.maxWorkersNumber[workerRole] = safeSourcesNumber * workersPerSource[workerRole];
+let initCreepLimits = function () {
+	Memory.maxCreepNumbers = {};
+	for (let groupName in projectCreepRoles) {
+		Memory.maxCreepNumbers[groupName] = {}
+		for (let roleName in projectCreepRoles[groupName]) {
+			Memory.maxCreepNumbers[groupName][roleName] = 0;
+		}
 	}
 
-	logger.info(`Workers limits were inited (time : ${Game.time}).`);
+	initWorkerLimits();
+}
+
+let initWorkerLimits = function () {
+	let workersPerSource = {};
+	workersPerSource[projectCreepRoles.worker.harvester] = 3;
+	workersPerSource[projectCreepRoles.worker.builder] = 3;
+	workersPerSource[projectCreepRoles.worker.upgrader] = 4;
+
+	let safeSourcesNumber = filters.getSafeSources().length;
+	for (let workerRole in workersPerSource) {
+		Memory.maxCreepNumbers.worker[workerRole] = safeSourcesNumber * workersPerSource[workerRole];
+	}
+
+	logger.info(`Worker limits were inited (time : ${Game.time}).`);
 };
 
 let initSources = function (room) {
-	roleWorker.initializeSources(room);
+	initializeSources(room);
 	logger.info(`Sources were inited (time : ${Game.time}).`);
+};
+
+/**
+ * Memorize room sources in Memory and clear creep(s).memory.sourceId.
+ *
+ * @param {Room} room
+ */
+let initializeSources = function (room) {
+	let foundSources = room.find(FIND_SOURCES);
+	let sources = [];
+	foundSources.forEach(
+		function (foundSource) {
+			sources.push(
+				//source structure
+				{
+					id: foundSource.id,
+					assignedCreepsAmount: 0,
+					isDangerous: false,
+					position: foundSource.pos,
+				}
+			)
+		}
+	);
+	filters.getWorkers().forEach(
+		function (creep) {
+			creep.memory.sourceId = undefined;
+		}
+	);
+	Memory.sources = sources;
 };
 
 let initHostiles = function (room) {
